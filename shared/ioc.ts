@@ -11,23 +11,23 @@ import ICartService, {CartService} from "../features/cart/cart.service";
 export const container = new Container({skipBaseClassChecks: true, defaultScope: 'Singleton'});
 
 // Register services
-container.bind<TableStore>(TableStore.name).to(TableStore);
-container.bind<TableStoreQuery>(TableStoreQuery.name).toDynamicValue((ctx) => {
-    const tableStore = ctx.container.get<TableStore>(TableStore.name);
+container.bind<TableStore>(Services.TableStore).to(TableStore);
+container.bind<TableStoreQuery>(Services.TableStoreQuery).toDynamicValue((ctx) => {
+    const tableStore = ctx.container.get<TableStore>(Services.TableStore);
     return new TableStoreQuery(tableStore);
 })
-container.bind<ITableService>(Services.Table).to(TableService);
+container.bind<ITableService>(Services.TableService).to(TableService);
 
-container.bind<MenuStore>(MenuStore.name).to(MenuStore)
-container.bind<MenuStoreQuery>(MenuStoreQuery.name).toDynamicValue(ctx => {
-    const menuStore = ctx.container.get<MenuStore>(MenuStore.name)
+container.bind<MenuStore>(Services.MenuStore).to(MenuStore)
+container.bind<MenuStoreQuery>(Services.MenuStoreQuery).toDynamicValue(ctx => {
+    const menuStore = ctx.container.get<MenuStore>(Services.MenuStore)
     return new MenuStoreQuery(menuStore)
 })
-container.bind<IMenuService>(Services.Menu).to(MenuService);
+container.bind<IMenuService>(Services.MenuService).to(MenuService);
 
-container.bind<CartStore>(CartStore.name).to(CartStore)
-container.bind<CartStoreQuery>(CartStoreQuery.name).toDynamicValue(ctx => {
-    const cartStore = ctx.container.get<CartStore>(CartStore.name)
+container.bind<CartStore>(Services.CartStore).to(CartStore)
+container.bind<CartStoreQuery>(Services.CartStoreQuery).toDynamicValue(ctx => {
+    const cartStore = ctx.container.get<CartStore>(Services.CartStore)
     return new CartStoreQuery(cartStore)
 })
-container.bind<ICartService>(Services.Cart).to(CartService);
+container.bind<ICartService>(Services.CartService).to(CartService);

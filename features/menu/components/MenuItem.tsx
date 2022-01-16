@@ -14,8 +14,8 @@ interface MenuItemProps {
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({data}) => {
-    const cartService = useService<ICartService>(Services.Cart);
-    const cartStoreQuery = useService<CartStoreQuery>(CartStoreQuery.name)
+    const cartService = useService<ICartService>(Services.CartService);
+    const cartStoreQuery = useService<CartStoreQuery>(Services.CartStoreQuery)
     const itemInCart = useObservableState(cartStoreQuery.selectCartItem(data?.id || "XXX"))
 
     const onAddBtnClicked = () => {

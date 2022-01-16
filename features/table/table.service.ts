@@ -2,7 +2,7 @@ import {inject, injectable} from "inversify";
 import {TableStore} from "./table.store";
 import Table from "./table.model";
 import EaterApiClient from "../../shared/services/http-client.service";
-import {EaterApi} from "../../shared/constants";
+import {EaterApi, Services} from "../../shared/constants";
 import HttpRequestException from "../../shared/exceptions/http-request-exception";
 import {debounce} from "@mui/material";
 
@@ -12,7 +12,7 @@ export default interface ITableService {
 
 @injectable()
 export class TableService implements ITableService {
-    @inject(TableStore.name) private tableStore: TableStore = undefined!
+    @inject(Services.TableStore) private tableStore: TableStore = undefined!
 
     async getTable(tableId: string) {
         this.tableStore.setLoading(true);

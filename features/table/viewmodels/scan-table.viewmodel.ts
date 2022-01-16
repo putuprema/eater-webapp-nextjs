@@ -9,8 +9,8 @@ import Table from "../table.model";
 
 export default function useScanTableViewModel(): [Table | undefined, boolean, any] {
     const router = useRouter();
-    const tableService = useService<ITableService>(Services.Table);
-    const tableStoreQuery = useService<TableStoreQuery>(TableStoreQuery.name);
+    const tableService = useService<ITableService>(Services.TableService);
+    const tableStoreQuery = useService<TableStoreQuery>(Services.TableStoreQuery);
 
     const loading = useObservableState(tableStoreQuery.loading$, true);
     const error = useObservableState(tableStoreQuery.error$);

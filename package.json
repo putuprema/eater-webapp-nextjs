@@ -24,7 +24,8 @@
     "react-dom": "^18.0.0-rc.0",
     "react-inversify": "^2.0.1",
     "reflect-metadata": "^0.1.13",
-    "sass": "^1.47.0"
+    "sass": "^1.47.0",
+    "sharp": "^0.29.3"
   },
   "devDependencies": {
     "@types/node": "17.0.8",

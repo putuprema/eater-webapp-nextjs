@@ -3,9 +3,10 @@ import {CartStoreQuery} from "../../cart/cart.store";
 import {useObservableState} from "observable-hooks";
 import {Badge, duration, easing, Fab, Slide} from "@mui/material";
 import {ShoppingCart} from "@mui/icons-material";
+import {Services} from "../../../shared/constants";
 
 export const CheckoutFab = () => {
-    const cartStoreQuery = useService<CartStoreQuery>(CartStoreQuery.name)
+    const cartStoreQuery = useService<CartStoreQuery>(Services.CartStoreQuery)
     const itemCount = useObservableState(cartStoreQuery.itemCount$, 0)
     const totalAmount = useObservableState(cartStoreQuery.totalAmount$, 0)
 

@@ -5,7 +5,13 @@ export const EaterApi = {
 }
 
 export const Services = {
-    Table: Symbol.for("TableService"),
-    Menu: Symbol.for("MenuService"),
-    Cart: Symbol.for("CartService")
+    TableService: Symbol.for("TableService"),
+    TableStore: Symbol.for("TableStore"),
+    TableStoreQuery: Symbol.for("TableStoreQuery"),
+    MenuService: Symbol.for("MenuService"),
+    MenuStore: Symbol.for("MenuStore"),
+    MenuStoreQuery: Symbol.for("MenuStoreQuery"),
+    CartService: Symbol.for("CartService"),
+    CartStore: Symbol.for("CartStore"),
+    CartStoreQuery: Symbol.for("CartStoreQuery")
 }

@@ -10,10 +10,10 @@ import {useCallback, useEffect} from "react";
 import {debounce} from "@mui/material";
 
 export default function useMenuViewModel(): [Table | undefined, FeaturedProducts[] | undefined, ProductCategory[] | undefined, boolean, any] {
-    const tableStoreQuery = useService<TableStoreQuery>(TableStoreQuery.name)
-    const menuStore = useService<MenuStore>(MenuStore.name)
-    const menuStoreQuery = useService<MenuStoreQuery>(MenuStoreQuery.name)
-    const menuService = useService<MenuService>(Services.Menu)
+    const tableStoreQuery = useService<TableStoreQuery>(Services.TableStoreQuery)
+    const menuStore = useService<MenuStore>(Services.MenuStore)
+    const menuStoreQuery = useService<MenuStoreQuery>(Services.MenuStoreQuery)
+    const menuService = useService<MenuService>(Services.MenuService)
 
     const selectedTable = useObservableState(tableStoreQuery.selectedTable$)
     const featuredMenuList = useObservableState(menuStoreQuery.featuredMenuList$)
