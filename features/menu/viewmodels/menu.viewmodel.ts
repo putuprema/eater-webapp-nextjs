@@ -8,8 +8,10 @@ import Table from "../../table/table.model";
 import {FeaturedProducts, ProductCategory} from "../menu.model";
 import {useCallback, useEffect} from "react";
 import {debounce} from "@mui/material";
+import ITableService from "../../table/table.service";
 
 export default function useMenuViewModel(): [Table | undefined, FeaturedProducts[] | undefined, ProductCategory[] | undefined, boolean, any] {
+    const tableService = useService<ITableService>(Services.TableService)
     const tableStoreQuery = useService<TableStoreQuery>(Services.TableStoreQuery)
     const menuStore = useService<MenuStore>(Services.MenuStore)
     const menuStoreQuery = useService<MenuStoreQuery>(Services.MenuStoreQuery)
@@ -40,6 +42,10 @@ export default function useMenuViewModel(): [Table | undefined, FeaturedProducts
     useEffect(() => {
         fetchRequiredData()
     }, [fetchRequiredData])
+
+    useEffect(() => {
+        tableService.trySetActiveTableFromCookie()
+    }, [tableService])
 
     return [selectedTable, featuredMenuList, categories, loading, error]
 }

@@ -1,11 +1,12 @@
 import {useService} from "../../../shared/ioc.react";
-import {Services} from "../../../shared/constants";
+import {Constants, Services} from "../../../shared/constants";
 import ITableService from "../table.service";
 import {useRouter} from "next/router";
 import {TableStoreQuery} from "../table.store";
 import {useObservableState} from "observable-hooks";
 import {useEffect} from "react";
 import Table from "../table.model";
+import cookies from "js-cookie";
 
 export default function useScanTableViewModel(): [Table | undefined, boolean, any] {
     const router = useRouter();
@@ -18,6 +19,7 @@ export default function useScanTableViewModel(): [Table | undefined, boolean, an
 
     useEffect(() => {
         if (selectedTable) {
+            cookies.set(Constants.CurrentTableCookieKey, JSON.stringify(selectedTable))
             router.push('/menu')
         } else if (router.query.tableId) {
             tableService.getTable(router.query.tableId as string);

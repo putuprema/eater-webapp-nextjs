@@ -15,3 +15,7 @@ export const Services = {
     CartStore: Symbol.for("CartStore"),
     CartStoreQuery: Symbol.for("CartStoreQuery")
 }
+
+export const Constants = {
+    CurrentTableCookieKey: "CurrentTable"
+}

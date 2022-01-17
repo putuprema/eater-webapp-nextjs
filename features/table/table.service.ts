@@ -2,12 +2,15 @@ import {inject, injectable} from "inversify";
 import {TableStore} from "./table.store";
 import Table from "./table.model";
 import EaterApiClient from "../../shared/services/http-client.service";
-import {EaterApi, Services} from "../../shared/constants";
+import {Constants, EaterApi, Services} from "../../shared/constants";
 import HttpRequestException from "../../shared/exceptions/http-request-exception";
 import {debounce} from "@mui/material";
+import cookies from "js-cookie";
 
 export default interface ITableService {
     getTable(tableId: string): Promise<void>
+
+    trySetActiveTableFromCookie(): boolean
 }
 
 @injectable()
@@ -30,5 +33,15 @@ export class TableService implements ITableService {
             }
             this.tableStore.setLoading(false);
         }
+    }
+
+    trySetActiveTableFromCookie(): boolean {
+        const tableCookieStr = cookies.get(Constants.CurrentTableCookieKey)
+        if (tableCookieStr) {
+            const table = JSON.parse(tableCookieStr)
+            this.tableStore.update({selectedTable: table})
+            return true
+        }
+        return false
     }
 }
