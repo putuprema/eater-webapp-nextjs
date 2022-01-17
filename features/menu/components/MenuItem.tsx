@@ -8,25 +8,34 @@ import {Services} from "../../../shared/constants";
 import {CartStoreQuery} from "../../cart/cart.store";
 import {useObservableState} from "observable-hooks";
 import {Add, Remove} from "@mui/icons-material";
+import {MenuStore} from "../menu.store";
 
 interface MenuItemProps {
     data?: Product
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({data}) => {
+    const menuStore = useService<MenuStore>(Services.MenuStore)
     const cartService = useService<ICartService>(Services.CartService);
     const cartStoreQuery = useService<CartStoreQuery>(Services.CartStoreQuery)
     const itemInCart = useObservableState(cartStoreQuery.selectCartItem(data?.id || "XXX"))
 
-    const onAddBtnClicked = () => {
+    const onItemClicked = () => {
+        menuStore.selectMenu(data)
+    }
+
+    const onAddBtnClicked = (ev: React.MouseEvent) => {
+        ev.stopPropagation()
         if (data) cartService.addToCart(data)
     }
 
-    const onIncBtnClicked = () => {
+    const onIncBtnClicked = (ev: React.MouseEvent) => {
+        ev.stopPropagation()
         if (data && itemInCart) cartService.setQty(data.id, itemInCart.qty + 1)
     }
 
-    const onDecBtnClicked = () => {
+    const onDecBtnClicked = (ev: React.MouseEvent) => {
+        ev.stopPropagation()
         if (data && itemInCart) cartService.setQty(data.id, itemInCart.qty - 1)
     }
 
@@ -47,7 +56,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({data}) => {
     }
 
     return (
-        <Card sx={{maxWidth: '200px', borderRadius: '10px'}} elevation={6}>
+        <Card sx={{maxWidth: '200px', borderRadius: '10px'}} elevation={6} onClick={onItemClicked}>
             <CardContent className={"grid gap-3"}>
                 <div style={{width: '100%', height: 100}} className={"flex items-center justify-center"}>
                     {data ? (

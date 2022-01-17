@@ -6,6 +6,7 @@ import {Constants, EaterApi, Services} from "../../shared/constants";
 import HttpRequestException from "../../shared/exceptions/http-request-exception";
 import {debounce} from "@mui/material";
 import cookies from "js-cookie";
+import {transaction} from "@datorama/akita";
 
 export default interface ITableService {
     getTable(tableId: string): Promise<void>
@@ -35,13 +36,17 @@ export class TableService implements ITableService {
         }
     }
 
+    @transaction()
     trySetActiveTableFromCookie(): boolean {
+        let success = false
         const tableCookieStr = cookies.get(Constants.CurrentTableCookieKey)
         if (tableCookieStr) {
             const table = JSON.parse(tableCookieStr)
             this.tableStore.update({selectedTable: table})
-            return true
+            success = true
         }
-        return false
+
+        this.tableStore.setLoading(false)
+        return success
     }
 }

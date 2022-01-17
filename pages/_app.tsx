@@ -10,7 +10,9 @@ import Head from "next/head";
 import {ServiceProvider} from "../shared/ioc.react";
 import {container} from "../shared/ioc";
 import {RouteChangeIndicator} from "../features/common/components/RouteChangeIndicator";
+import {akitaDevtools} from "@datorama/akita";
 
+akitaDevtools({name: 'Eater'})
 const clientSideEmotionCache = createEmotionCache();
 
 export interface MyAppProps extends AppProps {

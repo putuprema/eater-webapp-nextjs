@@ -24,7 +24,7 @@ export class MenuStore extends Store<MenuState> {
         this.update({featuredMenuList})
     }
 
-    selectMenu(menu: Product) {
+    selectMenu(menu?: Product) {
         this.update({selectedMenu: menu})
     }
 

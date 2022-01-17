@@ -9,6 +9,7 @@ import {FeaturedMenuParent} from "../features/menu/components/FeaturedMenuParent
 import {MenuCategoryTabSkeleton} from "../features/menu/components/MenuCategoryTabSkeleton";
 import {MenuCategoryTabs} from "../features/menu/components/MenuCategoryTabs";
 import {CheckoutFab} from "../features/common/components/CheckoutFab";
+import {MenuDetailDrawer} from "../features/menu/components/MenuDetailDrawer";
 
 const Menu: NextPage = () => {
     const [selectedTable, featuredMenuList, categories, loading] = useMenuViewModel();
@@ -40,12 +41,15 @@ const Menu: NextPage = () => {
                 {loading ? (
                     <MenuLoadingSkeleton/>
                 ) : (
-                    <div className={"grid gap-10"}>
-                        {featuredMenuList?.map(featured => (
-                            <FeaturedMenuParent key={featured.category.id} category={featured.category}
-                                                products={featured.products}/>
-                        ))}
-                    </div>
+                    <>
+                        <div className={"grid gap-10"}>
+                            {featuredMenuList?.map(featured => (
+                                <FeaturedMenuParent key={featured.category.id} category={featured.category}
+                                                    products={featured.products}/>
+                            ))}
+                        </div>
+                        <MenuDetailDrawer/>
+                    </>
                 )}
                 <CheckoutFab/>
             </Container>

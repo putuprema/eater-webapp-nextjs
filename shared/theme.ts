@@ -24,6 +24,13 @@ const theme = createTheme({
                     borderRadius: '10px'
                 }
             }
+        },
+        MuiBackdrop: {
+            styleOverrides: {
+                root: {
+                    backdropFilter: 'blur(3px)'
+                }
+            }
         }
     }
 })
