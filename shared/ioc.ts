@@ -6,11 +6,20 @@ import IMenuService, {MenuService} from "../features/menu/menu.service";
 import {MenuStore, MenuStoreQuery} from "../features/menu/menu.store";
 import {CartStore, CartStoreQuery} from "../features/cart/cart.store";
 import ICartService, {CartService} from "../features/cart/cart.service";
+import {PersistState, persistState} from "@datorama/akita";
+import {debounceTime} from "rxjs/operators";
 
 // Dependency Injection container
 export const container = new Container({skipBaseClassChecks: true, defaultScope: 'Singleton'});
 
 // Register services
+const statePersistor = persistState({
+    enableInNonBrowser: false,
+    include: ['cart'],
+    preStorageUpdateOperator: () => debounceTime(1000)
+})
+container.bind<PersistState>(Services.StatePersistor).toDynamicValue(() => statePersistor)
+
 container.bind<TableStore>(Services.TableStore).to(TableStore);
 container.bind<TableStoreQuery>(Services.TableStoreQuery).toDynamicValue((ctx) => {
     const tableStore = ctx.container.get<TableStore>(Services.TableStore);

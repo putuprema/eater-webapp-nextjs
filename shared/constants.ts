@@ -5,6 +5,7 @@ export const EaterApi = {
 }
 
 export const Services = {
+    StatePersistor: Symbol.for("StatePersistor"),
     TableService: Symbol.for("TableService"),
     TableStore: Symbol.for("TableStore"),
     TableStoreQuery: Symbol.for("TableStoreQuery"),
